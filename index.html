@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Image Generator</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 30px; }
+    input { width: 300px; padding: 10px; }
+    button { padding: 10px 20px; margin-left: 10px; }
+    img { margin-top: 20px; max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <h1>AI Image Generator</h1>
+  <input type="text" id="prompt" placeholder="Type your image prompt here..." />
+  <button onclick="generateImage()">Generate</button>
+  <div>
+    <img id="resultImage" src="" alt="Generated image will appear here" />
+  </div>
+
+  <script>
+    async function generateImage() {
+      const prompt = document.getElementById('prompt').value;
+      const res = await fetch('https://your-backend-url/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      document.getElementById('resultImage').src = data.image_url;
+    }
+  </script>
+</body>
+</html>
